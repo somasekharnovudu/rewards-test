@@ -10,7 +10,6 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" exact Component={UserList} />
-
         <Route path="user/:id" exact Component={PurchaseInformation} />
       </Routes>
     </div>
