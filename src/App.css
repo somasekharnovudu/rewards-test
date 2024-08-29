@@ -14,3 +14,14 @@ table, th, td {
   color: #3434f5;
   cursor: pointer;
 }
+.link:hover {
+  text-decoration: underline;
+}
+
+table tbody tr td {
+  text-align: center;
+}
+
+table tbody tr td:not(:first-child) {
+  text-align: right;
+}

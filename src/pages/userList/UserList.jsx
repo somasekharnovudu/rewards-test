@@ -46,7 +46,7 @@ export const UserList = () => {
             <tr>
               <th>User ID</th>
               <th>User Name</th>
-              <th>Purchased Amount</th>
+              <th>Total Purchased Amount</th>
             </tr>
           </thead>
           <tbody>
@@ -57,7 +57,7 @@ export const UserList = () => {
                 <td>{formatCurrency(userObj.purchase_amount)}</td>
                 <td>
                   <div className="link" role='link' onClick={() => navigate(`user/${userObj.id}`)}>
-                    Click for Purchase details
+                    Click for Purchase details & Rewards
                   </div>
                 </td>
               </tr>)
