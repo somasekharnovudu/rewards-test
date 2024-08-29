@@ -11,6 +11,122 @@
                 {
                     "purchase_date": "02-23-2024",
                     "purchase_amount": "175"
+                },
+                {
+                    "purchase_date": "03-25-2024",
+                    "purchase_amount": "180"
+                }
+            ]
+        },
+        {
+            "id": "2",
+            "user_name": "Alice",
+            "purchase_history": [
+                {
+                    "purchase_date": "01-20-2024",
+                    "purchase_amount": "150"
+                },
+                {
+                    "purchase_date": "02-12-2024",
+                    "purchase_amount": "190"
+                }
+            ]
+        },
+        {
+            "id": "3",
+            "user_name": "Bob",
+            "purchase_history": [
+                {
+                    "purchase_date": "02-05-2024",
+                    "purchase_amount": "200"
+                }
+            ]
+        },
+        {
+            "id": "4",
+            "user_name": "Charlie",
+            "purchase_history": [
+                {
+                    "purchase_date": "02-18-2024",
+                    "purchase_amount": "250"
+                },
+                {
+                    "purchase_date": "03-07-2024",
+                    "purchase_amount": "270"
+                }
+            ]
+        },
+        {
+            "id": "5",
+            "user_name": "Eve",
+            "purchase_history": [
+                {
+                    "purchase_date": "03-01-2024",
+                    "purchase_amount": "300"
+                }
+            ]
+        },
+        {
+            "id": "6",
+            "user_name": "David",
+            "purchase_history": [
+                {
+                    "purchase_date": "03-05-2024",
+                    "purchase_amount": "225"
+                },
+                {
+                    "purchase_date": "01-15-2024",
+                    "purchase_amount": "215"
+                }
+            ]
+        },
+        {
+            "id": "7",
+            "user_name": "Frank",
+            "purchase_history": [
+                {
+                    "purchase_date": "01-30-2024",
+                    "purchase_amount": "100"
+                }
+            ]
+        },
+        {
+            "id": "8",
+            "user_name": "Grace",
+            "purchase_history": [
+                {
+                    "purchase_date": "03-15-2024",
+                    "purchase_amount": "400"
+                }
+            ]
+        },
+        {
+            "id": "9",
+            "user_name": "Heidi",
+            "purchase_history": [
+                {
+                    "purchase_date": "02-28-2024",
+                    "purchase_amount": "350"
+                }
+            ]
+        },
+        {
+            "id": "10",
+            "user_name": "Ivan",
+            "purchase_history": [
+                {
+                    "purchase_date": "01-10-2024",
+                    "purchase_amount": "130"
+                }
+            ]
+        },
+        {
+            "id": "11",
+            "user_name": "Judy",
+            "purchase_history": [
+                {
+                    "purchase_date": "03-20-2024",
+                    "purchase_amount": "480"
                 }
             ]
         }

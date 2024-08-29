@@ -1,38 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
-
+import React from "react";
+import "./App.css";
+import { BrowserRouter } from "react-router-dom";
+import { Route, Routes } from "react-router";
+import { UserList } from "./pages/userList/UserList";
+import { PurchaseInformation } from "./pages/purchaseInformation/PurchaseInformation";
 
 function App() {
-  const [userList, setUserList] = useState([])
-
-  useEffect(() => {
-
-  }, [])
-
-
   return (
     <div className="App">
-      <header>
-        <h2>User List</h2>
-      </header>
-      <div className="container">
-        <div className="user-list-container">
-          <table>
-            <thead>
-              <tr>
-                <th>User ID</th>
-                <th>User Name</th>
-                <th>Purchased Amount</th>
-              </tr>
-            </thead>
-            <tbody>
+      <Routes>
+        <Route path="/" exact Component={UserList} />
 
-            </tbody>
-          </table>
-        </div>
-      </div>
+        <Route path="user/:id" exact Component={PurchaseInformation} />
+      </Routes>
     </div>
   );
 }
 
-export default App;
+export default function () {
+  return (
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  );
+}
