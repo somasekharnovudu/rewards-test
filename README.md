@@ -1,12 +1,14 @@
-# Getting Started with Create React App
+# This is User purchase history and rewards points report app
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
-In the project directory, you can run:
+In the project directory, you need to run api and ui:
 
-### `npm start`
+### `npm run start-api`
+
+### `npm  run start-ui`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
