@@ -1,7 +1,10 @@
 import { getUserList } from "../../services/appservice";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 
 export const UserList = () => {
+  const navigate = useNavigate();
+
   const [userList, setUserList] = useState([]);
   useEffect(() => {
     const fetchUsers = async () => {
@@ -26,8 +29,17 @@ export const UserList = () => {
             <tr key={user.id}>
               <td>{user.id}</td>
               <td>{user.user_name}</td>
-              <td>{user.purchase_history.purchase_amount}</td>
-              <td>click here for more data</td>
+              <td>
+                {user.purchase_history.reduce(
+                  (total, item) => total + parseFloat(item.purchase_amount),
+                  0
+                )}
+              </td>
+              <td>
+                <button onClick={() => navigate("user/:id")}>
+                  more details
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
