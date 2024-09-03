@@ -36,7 +36,7 @@ export const UserList = () => {
                 )}
               </td>
               <td>
-                <button onClick={() => navigate(`users/${user.id}`)}>
+                <button onClick={() => navigate(`user/${user.id}`)}>
                   more details
                 </button>
               </td>

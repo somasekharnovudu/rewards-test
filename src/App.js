@@ -11,7 +11,7 @@ function App() {
       <Routes>
         <Route path="/" exact Component={UserList} />
 
-        <Route path="users/:id" exact Component={PurchaseInformation} />
+        <Route path="user/:id" exact Component={PurchaseInformation} />
       </Routes>
     </div>
   );

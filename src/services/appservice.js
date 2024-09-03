@@ -10,5 +10,5 @@ export const getUserList = () =>
 export const getUserData = (userid) =>
   axios
     .get(API_URL + "/users/" + userid)
-    .then((resp) => resp)
+    .then((resp) => resp.data)
     .catch((err) => ({ err }));
