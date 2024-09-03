@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { getUserList } from '../../services/appservice';
-import { Link } from 'react-router-dom';
 import { Loader } from '../../components/Loader/Loader';
 import { useNavigate } from 'react-router-dom';
 import { formatCurrency } from '../../utils/utils';
+import {
+  MaterialReactTable,
+  useMaterialReactTable
+} from 'material-react-table';
+
 
 export const UserList = () => {
 
@@ -11,6 +15,40 @@ export const UserList = () => {
   const [isLoading, setLoading] = React.useState(false);
   const [errorMessage, setErrorMessage] = React.useState('');
   const navigate = useNavigate();
+
+  const columns = useMemo(
+    () => [
+      {
+        accessorKey: 'id', //simple recommended way to define a column
+        header: 'ID',
+      },
+      {
+        accessorKey: 'user_name', //simple recommended way to define a column
+        header: 'User Name',
+      },
+      {
+        accessorKey: 'purchase_amount', //simple recommended way to define a column
+        header: 'Purchase Amount',
+        Cell: ({ cell }) => formatCurrency(parseFloat(cell.getValue()))
+      }, {
+        accessorKey: 'details_id',
+        header: 'Details',
+        enableSorting: false,
+        enableColumnOrdering: false,
+        Cell: ({ cell }) => <div className="link" role='link' onClick={() => navigate(`user/${cell.getValue()}`)}>
+          Click for Purchase details
+        </div>
+      }
+    ],
+    [],
+  );
+
+  const table = useMaterialReactTable({
+    columns,
+    data: userList,
+    enableColumnOrdering: true,
+    enableGlobalFilter: false,
+  });
 
   React.useEffect(() => {
     setLoading(true);
@@ -22,7 +60,8 @@ export const UserList = () => {
         const aggregateData = resp.data.map((userObj) => {
           return {
             ...userObj,
-            purchase_amount: userObj.purchase_history.reduce((a, b) => a + parseFloat(b.purchase_amount), 0)
+            purchase_amount: userObj.purchase_history.reduce((a, b) => a + parseFloat(b.purchase_amount), 0),
+            details_id: userObj.id
           }
         })
         setUserList(aggregateData)
@@ -41,29 +80,7 @@ export const UserList = () => {
         errorMessage ? <div className="error">{errorMessage}</div> : ''
       }
       {
-        !errorMessage && userList.length ? <table>
-          <thead>
-            <tr>
-              <th>User ID</th>
-              <th>User Name</th>
-              <th>Total Purchased Amount</th>
-            </tr>
-          </thead>
-          <tbody>
-            {
-              userList.map((userObj) => <tr key={userObj.id}>
-                <td>{userObj.id}</td>
-                <td>{userObj.user_name}</td>
-                <td>{formatCurrency(userObj.purchase_amount)}</td>
-                <td>
-                  <div className="link" role='link' onClick={() => navigate(`user/${userObj.id}`)}>
-                    Click for Purchase details & Rewards
-                  </div>
-                </td>
-              </tr>)
-            }
-          </tbody>
-        </table> : ''
+        !errorMessage && userList?.length ? <MaterialReactTable table={table} /> : ''
       }
 
     </div>

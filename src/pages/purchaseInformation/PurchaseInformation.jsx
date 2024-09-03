@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useParams } from 'react-router';
 import { getUserData } from '../../services/appservice';
 import { Loader } from '../../components/Loader/Loader';
 import moment from 'moment'
 import { formatCurrency } from '../../utils/utils';
+import { useNavigate } from 'react-router-dom';
+import {
+  MaterialReactTable,
+  useMaterialReactTable
+} from 'material-react-table';
 
 const calculatePoints = (amount) => {
   let points = 0;
@@ -16,15 +21,64 @@ const calculatePoints = (amount) => {
   return points;
 };
 
-
-
 export const PurchaseInformation = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [userInfo, setUserInfo] = useState({})
   const [errorMessage, setErrorMessage] = useState('');
   const [rewardsInfo, setRewardsInfo] = useState([]);
   const [rewardsBreakup, setRewardsBreakUp] = useState([])
   const [isLoading, setLoading] = useState(false)
+
+  const purchaseColumns = useMemo(
+    () => [
+      {
+        accessorKey: 'purchase_date', //simple recommended way to define a column
+        header: 'Purchase Date',
+        Cell: ({ cell }) => moment(cell.getValue()).format('MMM DD,yyyy')
+      },
+      {
+        accessorKey: 'purchase_amount', //simple recommended way to define a column
+        header: 'Purchase Amount',
+        Cell: ({ cell }) => formatCurrency(parseFloat(cell.getValue()))
+      },
+      {
+        accessorKey: 'reward_points', //simple recommended way to define a column
+        header: 'Reward Points',
+        Cell: ({ cell }) => formatCurrency(parseFloat(cell.getValue()))
+      }
+    ],
+    [],
+  );
+  const purchaseHistoryTable = useMaterialReactTable({
+    columns: purchaseColumns,
+    data: rewardsInfo,
+    enableColumnOrdering: true,
+    enableGlobalFilter: false,
+  });
+
+
+  const breakUpColumns = useMemo(
+    () => [
+      {
+        accessorKey: 'month', //simple recommended way to define a column
+        header: 'Month',
+        Cell: ({ cell }) => moment(cell.getValue(), 'YYYYMM').format('MMMM, YYYY')
+      },
+      {
+        accessorKey: 'reward_points', //simple recommended way to define a column
+        header: 'Reward Points',
+      }
+    ],
+    [],
+  );
+  const breakupTable = useMaterialReactTable({
+    columns: breakUpColumns,
+    data: rewardsBreakup,
+    enableColumnOrdering: true,
+    enableGlobalFilter: false,
+  });
+
 
   const calculateUserRewards = () => {
     const { purchase_history } = userInfo;
@@ -78,6 +132,9 @@ export const PurchaseInformation = () => {
 
   return <div className="container">
     {isLoading ? <Loader /> : ''}
+    <div className="link" role='link' onClick={() => navigate(`/`)}>
+      Go Back
+    </div>
     <h2>User Information</h2>
     <h3>User Name: {userInfo.user_name}</h3>
     <h3>Purchase Information</h3>
@@ -85,44 +142,12 @@ export const PurchaseInformation = () => {
       errorMessage ? <div className="error">{errorMessage}</div> : ''
     }
     {
-      !errorMessage && userInfo?.purchase_history ? <table>
-        <thead>
-          <tr>
-            <th>Purchase Date</th>
-            <th>Purchase Amount</th>
-            <th>Reward Points</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            rewardsInfo.map((rewardObj) => <tr key={rewardObj.purchase_date + rewardObj.reward_points}>
-              <td>{moment(rewardObj.purchase_date).format('MMM DD,yyyy')}</td>
-              <td>{formatCurrency(parseFloat(rewardObj.purchase_amount))}</td>
-              <td>{rewardObj.reward_points}</td>
-            </tr>)
-          }
-        </tbody>
-      </table> : ''
+      !errorMessage && userInfo?.purchase_history ? <MaterialReactTable table={purchaseHistoryTable} /> : ''
     }
 
     <h3>Rewards Monthly Breakup</h3>
     {
-      !rewardsBreakup.length ? 'Reward Points Not available' : <table>
-        <thead>
-          <tr>
-            <th>Month</th>
-            <th>Reward Points</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            rewardsBreakup.map((rewardObj) => <tr key={rewardObj.month}>
-              <td>{rewardObj.render_month}</td>
-              <td>{rewardObj.reward_points}</td>
-            </tr>)
-          }
-        </tbody>
-      </table>
+      !rewardsBreakup.length ? 'Reward Points Not available' : <MaterialReactTable table={breakupTable} />
     }
   </div>;
 };
