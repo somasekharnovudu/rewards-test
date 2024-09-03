@@ -3,7 +3,7 @@ import "./App.css";
 import { BrowserRouter } from "react-router-dom";
 import { Route, Routes } from "react-router";
 import { UserList } from "./pages/userList/UserList";
-import { PurchaseInformation } from "./pages/purchaseInformation/PurchaseInformation";
+import PurchaseInformation from "./pages/purchaseInformation/PurchaseInformation";
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
       <Routes>
         <Route path="/" exact Component={UserList} />
 
-        <Route path="user/:id" exact Component={PurchaseInformation} />
+        <Route path="users/:id" exact Component={PurchaseInformation} />
       </Routes>
     </div>
   );
